@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun Quiz Page</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      color: white;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid white;
+      border-radius: 15px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      padding: 25px 30px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #ffd700;
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+    }
+
+    .question {
+      margin-bottom: 15px;
+    }
+
+    .question label {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    input {
+      padding: 10px;
+      margin-top: 5px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.8);
+      color: #333;
+    }
+
+    input:focus {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      font-size: 16px;
+      color: white;
+      background-color: #ff5722;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e64a19;
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .result.correct {
+      color: #00e676;
+    }
+
+    .result.incorrect {
+      color: #ff5252;
+    }
+
+    .error {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .quiz-end {
+      font-size: 18px;
+      color: #ffd700;
+      margin-top: 20px;
+      animation: shine 2s linear infinite;
+    }
+
+    @keyframes shine {
+      0% {
+        text-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700, 0 0 20px #ff8c00;
+      }
+      100% {
+        text-shadow: 0 0 20px #ffd700, 0 0 30px #ff8c00, 0 0 40px #ff8c00;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎉 Fun Quiz Challenge 🎉</h1>
+    <div id="quiz">
+      <div class="question">
+        <label for="question1">1. Name of the president of CES?</label>
+        <input type="text" id="question1" placeholder="Enter your answer">
+      </div>
+      <div class="question">
+        <label for="question2">2. Best Senior in CES?</label>
+        <input type="text" id="question2" placeholder="Enter your answer">
+      </div>
+      <div class="question">
+        <label for="question3">3. Full form of PMC?</label>
+        <input type="text" id="question3" placeholder="Enter your answer">
+      </div>
+      <button onclick="submitQuiz()">🎯 Submit 🎯</button>
+      <div id="result" class="result"></div>
+    </div>
+  </div>
+
+  <script>
+    // Correct answers
+    const correctAnswers = [
+      "Manvendra Sharma",
+      "Aditi Gupta",
+      "Piya Milan Chauraha"
+    ];
+
+    function submitQuiz() {
+      const answer1 = document.getElementById("question1").value.trim();
+      const answer2 = document.getElementById("question2").value.trim();
+      const answer3 = document.getElementById("question3").value.trim();
+
+      let isCorrect = true;
+      let resultElement = document.getElementById("result");
+
+      // Clear previous result
+      resultElement.innerHTML = "";
+      resultElement.classList.remove("correct", "incorrect");
+
+      // Check answers
+      if (answer1 !== correctAnswers[0]) {
+        resultElement.innerHTML += "<div class='error'>❌ Question 1 is incorrect.</div>";
+        isCorrect = false;
+      }
+      if (answer2.toLowerCase() !== correctAnswers[1].toLowerCase()) {
+        resultElement.innerHTML += "<div class='error'>❌ Question 2 is incorrect.</div>";
+        isCorrect = false;
+      }
+      if (answer3.toLowerCase() !== correctAnswers[2].toLowerCase()) {
+        resultElement.innerHTML += "<div class='error'>❌ Question 3 is incorrect.</div>";
+        isCorrect = false;
+      }
+
+      // Display result
+      if (isCorrect) {
+        resultElement.classList.add("correct");
+        resultElement.innerHTML = `
+          🎉 Congratulations! 🎉<br>
+          Google Coordinates: <b>36°07'12''N 115°10'20''W</b>
+          <div class="quiz-end">✨ You've completed the quiz! ✨</div>
+        `;
+      } else {
+        resultElement.classList.add("incorrect");
+        resultElement.innerHTML += `<br>😢 Please try again.`;
+      }
+    }
+  </script>
+</body>
+</html>
